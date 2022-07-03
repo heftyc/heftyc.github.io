@@ -1,0 +1,10 @@
+.logo-img{
+    height: 5em;
+    width: 5em;
+    size: 3em;
+}
+header{
+    border: 1em;
+    border-color: blueviolet;
+    color: blue;
+}
