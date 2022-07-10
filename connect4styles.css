@@ -1,0 +1,61 @@
+#myCanvas{
+    padding: 0px;
+    margin: 0px;
+}
+
+.body{
+    padding: 0px;
+    margin: 0px;
+}
+.button{
+    font: 30px Arial;
+    border-radius:1.8em;
+    border-width: 5px;
+    height: 50%;
+}
+/*
+#solveButton{
+    display: inline-block;
+    border-color: black;
+    background-color:lightgrey;
+    padding: 10px;
+}
+
+#resetButton{
+    display: inline-block;
+    border-color: black;
+    background-color: darkgray;
+}
+
+#sampleButton{
+    display: inline-block;
+    border-color: black;
+    background-color: darkgray;
+}*/
+
+#buttons{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    display: inline-block;
+    vertical-align: top;
+    justify-content: center;
+    width: 10%;
+}
+
+#buttons *{
+    display: inline-block;
+    border-color: black;
+    margin: 5px;
+    font-size: large;
+     
+}
+
+#background{
+    position: absolute;
+    z-index: -100;
+}
+
+ul{
+    list-style-type: none ;
+}

@@ -1,15 +1,69 @@
-.logo-img{
+.logo-img {
     height: 5em;
     width: 5em;
-    size: 3em;
-}
-header{
-    border: 1em;
-    border-color: blueviolet;
-    color: blue;
+    padding: 7px;
+    border-radius: 3px;
 }
 
-#background{
+html{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.nav-link{
+    width: 6em;
+    text-align: center;
+    
+}
+
+.logo-img:hover {
+    background-color: cyan;
+}
+
+#background {
     position: absolute;
-    z-index: -888;
+    z-index: -999;
+}
+
+#name-tag {
+    font-size: xx-large;
+    padding: 4px;
+}
+
+#top-banner {
+    padding: 1em;
+    background-color: rgb(177, 177, 177);
+    color: black;
+
+    border-bottom: 3px;
+    border-color: black;
+    border-bottom-style: solid;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#bottom-banner {
+    padding: 1em;
+    background-color: rgb(177, 177, 177);
+    color: black;
+
+    border-bottom: 3px;
+    border-color: black;
+    border-bottom-style: solid;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#content {
+    height: 90%;
+    width: 100%;
+    overflow:scroll;
+}
+
+p {
+    font-size: xx-large;
+    color: black;
 }
