@@ -7,12 +7,19 @@
 
 html{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
 }
 
 .nav-link{
     width: 6em;
     text-align: center;
+    text-decoration: none;
+    color: #00cccc;
     
+}
+
+a:hover{
+    color:cyan;
 }
 
 .logo-img:hover {
@@ -31,7 +38,7 @@ html{
 
 #top-banner {
     padding: 1em;
-    background-color: rgb(177, 177, 177);
+    background-color: rgb(177, 177, 177,0.8);
     color: black;
 
     border-bottom: 3px;
@@ -45,7 +52,7 @@ html{
 
 #bottom-banner {
     padding: 1em;
-    background-color: rgb(177, 177, 177);
+    background-color: rgb(0, 0, 0,0.5);
     color: black;
 
     border-bottom: 3px;
@@ -54,8 +61,9 @@ html{
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content:left;
 }
+
 
 #content {
     height: 90%;
