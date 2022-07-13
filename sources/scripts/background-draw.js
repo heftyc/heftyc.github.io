@@ -2,6 +2,7 @@ const AVG_TRI_DIM = 120;
 const TRI_VERT_OFFSET = 100;
 const PRIMARY_COLOR = "gray";
 const BASE_COLOR = "#ffffff";
+const SPECIAL_COLOR = "purple";
 
 const DRAW_BORDER = false;
 const BORDER_THIKNESS = 3;
@@ -25,14 +26,16 @@ two.renderer.domElement.fitted = true;
 function generateGradient(triangle) {
     let gradientStartIndex = Math.random() * 3;
 
+    let colorToDraw = Math.random()>0.0?PRIMARY_COLOR:SPECIAL_COLOR;
+
     if (gradientStartIndex < 1) {
-        let gradientColor = two.makeLinearGradient(triangle.vertices[0].x, triangle.vertices[0].y, triangle.vertices[1].x, triangle.vertices[1].y, new Two.Stop(0, PRIMARY_COLOR, 0.4), new Two.Stop(1, BASE_COLOR, 1));
+        let gradientColor = two.makeLinearGradient(triangle.vertices[0].x, triangle.vertices[0].y, triangle.vertices[1].x, triangle.vertices[1].y, new Two.Stop(0, colorToDraw, 0.4), new Two.Stop(1, BASE_COLOR, 1));
         return gradientColor;
     } else if (gradientStartIndex < 2) {
-        let gradientColor = two.makeLinearGradient(triangle.vertices[1].x, triangle.vertices[1].y, triangle.vertices[2].x, triangle.vertices[2].y, new Two.Stop(0, PRIMARY_COLOR, 0.4), new Two.Stop(1, BASE_COLOR, 1));
+        let gradientColor = two.makeLinearGradient(triangle.vertices[1].x, triangle.vertices[1].y, triangle.vertices[2].x, triangle.vertices[2].y, new Two.Stop(0, colorToDraw, 0.4), new Two.Stop(1, BASE_COLOR, 1));
         return gradientColor;
     } else {
-        let gradientColor = two.makeLinearGradient(triangle.vertices[2].x, triangle.vertices[2].y, triangle.vertices[0].x, triangle.vertices[0].y, new Two.Stop(0, PRIMARY_COLOR, 0.4), new Two.Stop(1, BASE_COLOR, 1));
+        let gradientColor = two.makeLinearGradient(triangle.vertices[2].x, triangle.vertices[2].y, triangle.vertices[0].x, triangle.vertices[0].y, new Two.Stop(0, colorToDraw, 0.4), new Two.Stop(1, BASE_COLOR, 1));
         return gradientColor;
     }
 }

@@ -52,8 +52,7 @@ a:hover{
 
 #bottom-banner {
     padding: 1em;
-    background-color: rgb(0, 0, 0,0.5);
-    color: black;
+    background-color: rgba(87, 9, 117, 0.5);
 
     border-bottom: 3px;
     border-color: black;
@@ -67,11 +66,11 @@ a:hover{
 
 #content {
     height: 90%;
-    width: 100%;
     overflow:scroll;
+    padding: 5%;
 }
 
 p {
-    font-size: xx-large;
+    font-size: x-large;
     color: black;
 }
