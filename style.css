@@ -5,17 +5,23 @@
     border-radius: 3px;
 }
 
+
+@font-face {
+    font-family: notoSans;
+    src: url(sources/fonts/NotoSans-Medium.ttf);
+}
 html{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /*font-family: Verdana, Geneva, Tahoma, sans-serif;*/
+    font-family: notoSans;
     font-weight: bold;
 }
 
 .nav-link{
-    width: 6em;
+    padding-right: 1.5em;
+    margin-left: 1.5em;
     text-align: center;
     text-decoration: none;
     color: #00cccc;
-    
 }
 
 a:hover{
