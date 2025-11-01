@@ -1,6 +1,87 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Translation App</title>
+    <link rel="stylesheet" href="translate.css" />
+  </head>
   <body>
-    <p>Hi Joe, welcome to the future home of your tranlsation app!</p>
+    <h1>Translation App</h1>
+
+    <!-- Database Management Section -->
+    <section id="databaseSection">
+      <h2>Word Database Management</h2>
+
+      <div>
+        <label for="searchInput">Search Words:</label>
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Type a word in English or Conlang..."
+        />
+        <ul id="searchResults"></ul>
+      </div>
+
+      <div id="editSection" style="display: none">
+        <h3>Add/Edit Word</h3>
+        <label for="wordInput">Word:</label>
+        <input id="wordInput" type="text" placeholder="Enter word..." />
+        <label for="meaningInput">Meaning:</label>
+        <input id="meaningInput" type="text" placeholder="Enter meaning..." />
+        <div class="button-group">
+          <button id="addWordBtn">Add Word</button>
+          <button id="updateWordBtn">Update Word</button>
+          <button id="deleteWordBtn">Delete Word</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Translation Section -->
+    <section id="translationSection">
+      <h2>Translation</h2>
+
+      <div>
+        <div class="translate-header">
+          <label for="translateInput">Enter text to translate:</label>
+          <button id="directionBtn">English → Conlang</button>
+        </div>
+        <textarea
+          id="translateInput"
+          placeholder="Enter a large block of text to translate here..."
+        ></textarea>
+      </div>
+
+      <div>
+        <label for="translateOutput">Translation Result:</label>
+        <div id="translateOutput">Translation will appear here...</div>
+      </div>
+    </section>
+
+    <!-- Import/Export Section -->
+    <section id="importExportSection">
+      <h2>Import / Export Dictionary</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 20px">
+        Export your dictionary as JSON to save or transfer it to another
+        computer, or import a previously exported dictionary.
+      </p>
+
+      <div class="button-group">
+        <button id="exportBtn">Export Dictionary</button>
+        <button id="importBtn">Import Dictionary</button>
+        <input
+          type="file"
+          id="importFileInput"
+          accept=".json"
+          style="display: none"
+        />
+      </div>
+
+      <div
+        id="importExportStatus"
+        style="margin-top: 16px; font-size: 14px; color: var(--text-secondary)"
+      ></div>
+    </section>
+
+    <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
+    <script src="translate.js"></script>
   </body>
 </html>
