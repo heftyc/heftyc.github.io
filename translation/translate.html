@@ -9,8 +9,6 @@
 
     <!-- Database Management Section -->
     <section id="databaseSection">
-      <h2>Word Database Management</h2>
-
       <div>
         <label for="searchInput">Search Words:</label>
         <input
@@ -18,6 +16,10 @@
           type="text"
           placeholder="Type a word in English or Conlang..."
         />
+        <div id="searchResultsHeader">
+          <div>Word</div>
+          <div>Meaning</div>
+        </div>
         <ul id="searchResults"></ul>
       </div>
 
@@ -37,8 +39,6 @@
 
     <!-- Translation Section -->
     <section id="translationSection">
-      <h2>Translation</h2>
-
       <div>
         <div class="translate-header">
           <label for="translateInput">Enter text to translate:</label>

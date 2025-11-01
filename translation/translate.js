@@ -23,12 +23,41 @@ async function searchDictionary(query) {
   if (!query) return [];
   query = query.toLowerCase();
 
-  return await db.dictionary
-    .filter(entry =>
-      entry.word.toLowerCase().includes(query) ||
-      entry.meaning.toLowerCase().includes(query)
-    )
+  const allMatches = await db.dictionary
+    .filter(entry => {
+      const wordLower = entry.word.toLowerCase();
+      const meaningLower = entry.meaning.toLowerCase();
+      return wordLower.includes(query) || meaningLower.includes(query);
+    })
     .toArray();
+
+  // Sort results: starts with query first, then contains query
+  return allMatches.sort((a, b) => {
+    const aWord = a.word.toLowerCase();
+    const aMeaning = a.meaning.toLowerCase();
+    const bWord = b.word.toLowerCase();
+    const bMeaning = b.meaning.toLowerCase();
+
+    // Check if entry starts with query (priority 1)
+    const aStartsWith = aWord.startsWith(query) || aMeaning.startsWith(query);
+    const bStartsWith = bWord.startsWith(query) || bMeaning.startsWith(query);
+
+    // If one starts with query and the other doesn't, prioritize the one that starts with it
+    if (aStartsWith && !bStartsWith) return -1;
+    if (!aStartsWith && bStartsWith) return 1;
+
+    // Both start with query or both don't - further prioritize by which field starts with it
+    if (aStartsWith && bStartsWith) {
+      // If both start with query, prioritize word starts over meaning starts
+      const aWordStarts = aWord.startsWith(query);
+      const bWordStarts = bWord.startsWith(query);
+      if (aWordStarts && !bWordStarts) return -1;
+      if (!aWordStarts && bWordStarts) return 1;
+    }
+
+    // If same priority, sort alphabetically by word
+    return aWord.localeCompare(bWord);
+  });
 }
 
 // Add a function to find exact word match
@@ -46,6 +75,14 @@ async function findExactWordMatch(word) {
 
 const searchBox = document.getElementById('searchInput');
 const results = document.getElementById('searchResults');
+const searchResultsHeader = document.getElementById('searchResultsHeader') || (() => {
+  const header = document.createElement('div');
+  header.id = 'searchResultsHeader';
+  header.style.cssText = 'display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 2px solid var(--border); border-bottom: none; background-color: var(--surface); font-weight: 600; font-size: 14px;';
+  header.innerHTML = '<div style="padding: 12px 16px; border-right: 1px solid var(--border);">Word</div><div style="padding: 12px 16px;">Meaning</div>';
+  results.parentNode.insertBefore(header, results);
+  return header;
+})();
 const wordInput = document.getElementById('wordInput');
 const meaningInput = document.getElementById('meaningInput');
 const addWordBtn = document.getElementById('addWordBtn');
@@ -85,11 +122,32 @@ searchBox.addEventListener('input', async e => {
   const matches = await searchDictionary(query);
 
   results.innerHTML = '';
+  
+  // Show/hide header based on results
+  if (matches.length > 0) {
+    searchResultsHeader.style.display = 'grid';
+  } else {
+    searchResultsHeader.style.display = 'none';
+  }
+  
   matches.forEach(entry => {
     const li = document.createElement('li');
-    li.textContent = `${entry.word} - ${entry.meaning}`;
     li.dataset.word = entry.word; // Store the word for reference
     li.dataset.meaning = entry.meaning; // Store the meaning for reference
+    
+    // Create word cell
+    const wordCell = document.createElement('div');
+    wordCell.className = 'word-cell';
+    wordCell.textContent = entry.word;  
+    
+    // Create meaning cell
+    const meaningCell = document.createElement('div');
+    meaningCell.className = 'meaning-cell';
+    meaningCell.textContent = entry.meaning;
+    
+    // Append cells to list item
+    li.appendChild(wordCell);
+    li.appendChild(meaningCell);
     
     // Add click handler to select this item
     li.addEventListener('click', () => {
@@ -353,14 +411,17 @@ exportBtn.addEventListener('click', async () => {
     
     importExportStatus.textContent = `✓ Exported ${allEntries.length} entries successfully!`;
     importExportStatus.style.color = 'var(--success-color)';
+    importExportStatus.style.display = 'block';
     
     // Clear status after 3 seconds
     setTimeout(() => {
       importExportStatus.textContent = '';
+      importExportStatus.style.display = 'none';
     }, 3000);
   } catch (error) {
     importExportStatus.textContent = `✗ Export failed: ${error.message}`;
     importExportStatus.style.color = 'var(--danger-color)';
+    importExportStatus.style.display = 'block';
   }
 });
 
@@ -406,6 +467,7 @@ importFileInput.addEventListener('change', async (e) => {
     
     importExportStatus.textContent = `✓ Imported ${entries.length} entries successfully!`;
     importExportStatus.style.color = 'var(--success-color)';
+    importExportStatus.style.display = 'block';
     
     // Refresh search results if there's a search query
     if (searchBox.value.trim()) {
@@ -418,10 +480,12 @@ importFileInput.addEventListener('change', async (e) => {
     // Clear status after 3 seconds
     setTimeout(() => {
       importExportStatus.textContent = '';
+      importExportStatus.style.display = 'none';
     }, 3000);
   } catch (error) {
     importExportStatus.textContent = `✗ Import failed: ${error.message}`;
     importExportStatus.style.color = 'var(--danger-color)';
+    importExportStatus.style.display = 'block';
     importFileInput.value = '';
   }
 });
